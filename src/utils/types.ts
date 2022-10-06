@@ -14,8 +14,8 @@ export type Employee = {
 }
 
 export type PaginatedResponse<TData> = {
-  data: TData
-  nextPage: number | null
+  data: TData,
+  displayViewMore: boolean
 }
 
 export type SuccessResponse = {
@@ -23,8 +23,7 @@ export type SuccessResponse = {
 }
 
 export type PaginatedRequestParams = {
-  page: number | null,
-  fetchAll: boolean | false
+  displayPages: number | undefined | null
 }
 
 export type RequestByEmployeeParams = {

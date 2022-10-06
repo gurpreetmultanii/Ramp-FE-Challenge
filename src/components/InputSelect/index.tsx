@@ -9,7 +9,7 @@ export function InputSelect<TItem>({
   onChange: consumerOnChange,
   items,
   parseItem,
-  isLoading,
+  employeesIsLoading,
   loadingLabel,
 }: InputSelectProps<TItem>) {
   const [selectedValue, setSelectedValue] = useState<TItem | null>(defaultValue ?? null)
@@ -83,7 +83,7 @@ export function InputSelect<TItem>({
             return null
           }
 
-          if (isLoading) {
+          if (employeesIsLoading) {
             return <div className="RampInputSelect--dropdown-item">{loadingLabel}...</div>
           }
 
