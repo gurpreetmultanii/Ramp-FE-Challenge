@@ -23,7 +23,8 @@ export type SuccessResponse = {
 }
 
 export type PaginatedRequestParams = {
-  page: number | null
+  page: number | null,
+  fetchAll: boolean | false
 }
 
 export type RequestByEmployeeParams = {

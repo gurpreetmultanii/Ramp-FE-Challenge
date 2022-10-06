@@ -20,6 +20,7 @@ export const getEmployees = (): Employee[] => data.employees
 
 export const getTransactionsPaginated = ({
   page,
+  fetchAll
 }: PaginatedRequestParams): PaginatedResponse<Transaction[]> => {
   if (page === null) {
     throw new Error("Page cannot be null")
@@ -36,13 +37,15 @@ export const getTransactionsPaginated = ({
 
   return {
     nextPage,
-    data: data.transactions.slice(start, end),
+    data: fetchAll ? data.transactions : data.transactions.slice(start, end),
   }
 }
 
 export const getTransactionsByEmployee = ({ employeeId }: RequestByEmployeeParams) => {
   if (!employeeId) {
     throw new Error("Employee id cannot be empty")
+  } else if (employeeId == "All") {
+    return data.transactions;
   }
 
   return data.transactions.filter((transaction) => transaction.employee.id === employeeId)

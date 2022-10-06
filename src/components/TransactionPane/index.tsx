@@ -26,7 +26,7 @@ export const TransactionPane: TransactionPaneComponent = ({ transaction }) => {
           {transaction.employee.firstName} {transaction.employee.lastName} - {transaction.date}
         </p>
       </div>
-      <InputCheckbox id={transaction.id} checked={approved} onChange={setTransactionApproval} />
+      <InputCheckbox id={transaction.id} checked={approved} onChange={(checked) => setTransactionApproval(checked)} />
     </div>
   )
 }
