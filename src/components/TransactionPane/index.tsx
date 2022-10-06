@@ -12,6 +12,7 @@ export const TransactionPane: TransactionPaneComponent = ({ transaction }) => {
       fakeFetch<SuccessResponse>("setTransactionApproval", {
         transactionId: transaction.id,
       })
+      console.log(newValue);
       setApproved(newValue)
     },
     [transaction.id]
@@ -26,7 +27,7 @@ export const TransactionPane: TransactionPaneComponent = ({ transaction }) => {
           {transaction.employee.firstName} {transaction.employee.lastName} - {transaction.date}
         </p>
       </div>
-      <InputCheckbox id={transaction.id} checked={approved} onChange={setTransactionApproval} />
+      <InputCheckbox id={transaction.id} checked={approved} onChange={(checked) => setTransactionApproval(checked)} />
     </div>
   )
 }
