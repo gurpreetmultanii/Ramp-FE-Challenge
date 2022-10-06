@@ -12,13 +12,12 @@ export function usePaginatedTransactions(): PaginatedTransactionsResult {
   > | null>(null)
 
   const fetchAll = useCallback(
-    (fetchAll?: boolean) =>
+    (displayPages?: number | null) =>
       wrappedRequest(async () => {
         const response = await customFetch<PaginatedResponse<Transaction[]>, PaginatedRequestParams>(
           "paginatedTransactions",
           {
-            page: paginatedTransactions === null ? 0 : paginatedTransactions.nextPage,
-            fetchAll: fetchAll ?? false
+            displayPages: displayPages
           }
         )
 
@@ -27,7 +26,7 @@ export function usePaginatedTransactions(): PaginatedTransactionsResult {
             return response
           }
 
-          return { data: response.data, nextPage: response.nextPage }
+          return { data: response.data, displayViewMore: response.displayViewMore }
         })
       }),
     [customFetch, paginatedTransactions, wrappedRequest]

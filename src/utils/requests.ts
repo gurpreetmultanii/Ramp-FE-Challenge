@@ -19,33 +19,20 @@ const data: { employees: Employee[]; transactions: Transaction[] } = {
 export const getEmployees = (): Employee[] => data.employees
 
 export const getTransactionsPaginated = ({
-  page,
-  fetchAll
+  displayPages
 }: PaginatedRequestParams): PaginatedResponse<Transaction[]> => {
-  if (page === null) {
-    throw new Error("Page cannot be null")
-  }
-
-  const start = page * TRANSACTIONS_PER_PAGE
-  const end = start + TRANSACTIONS_PER_PAGE
-
-  if (start > data.transactions.length) {
-    throw new Error(`Invalid page ${page}`)
-  }
-
-  const nextPage = end < data.transactions.length ? page + 1 : null
+  const start = 0
+  const end = (displayPages === null || displayPages === undefined) ? (start + TRANSACTIONS_PER_PAGE) : displayPages * (start + TRANSACTIONS_PER_PAGE)
 
   return {
-    nextPage,
-    data: fetchAll ? data.transactions : data.transactions.slice(start, end),
+    data: data.transactions.slice(start, Math.min(end, data.transactions.length)),
+    displayViewMore: end < data.transactions.length
   }
 }
 
 export const getTransactionsByEmployee = ({ employeeId }: RequestByEmployeeParams) => {
   if (!employeeId) {
     throw new Error("Employee id cannot be empty")
-  } else if (employeeId == "All") {
-    return data.transactions;
   }
 
   return data.transactions.filter((transaction) => transaction.employee.id === employeeId)
